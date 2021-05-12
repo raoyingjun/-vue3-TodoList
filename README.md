@@ -2,8 +2,7 @@
 
 ### 用法
 ```
-Vue3-TodoList & npm install
-npm install
+cd Vue3-TodoList & npm install
 ```
 
 ### 功能
