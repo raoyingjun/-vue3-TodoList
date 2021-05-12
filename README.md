@@ -2,7 +2,7 @@
 
 ### 用法
 ```
-cd vue3-demo & npm install
+Vue3-TodoList & npm install
 npm install
 ```
 
@@ -25,6 +25,6 @@ npm install
 
 ### 其他
 其它用到了些：
-* 该demo基于tpyescript
+* 该demo基于typescript
 * 使用了scss预处理器
-* 包含自己实现的Alert插件
+* 包含自己手写的Alert对话框组件
