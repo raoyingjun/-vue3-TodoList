@@ -4,22 +4,37 @@
     <button @click="handleSubmit">
       <slot>提交</slot>
     </button>
+    <Confirm
+      is-alert
+      v-model="alertVisible"
+      title="提示"
+      content="输入不能为空"
+      confirm-text="我知道了"/>
   </p>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineAsyncComponent, defineComponent, ref } from 'vue'
 
 export default defineComponent({
-  data () {
-    return {
-      text: ''
-    }
+  components: {
+    Confirm: defineAsyncComponent(() => import('./Confirm.vue'))
   },
   emits: ['add'],
-  methods: {
-    handleSubmit () {
-      this.$emit('add', this.text)
+  setup (props, { emit }) {
+    const text = ref('')
+    const alertVisible = ref(false)
+    const handleSubmit = () => {
+      if (!text.value) {
+        alertVisible.value = true
+        return
+      }
+      emit('add', text.value)
+    }
+    return {
+      text,
+      handleSubmit,
+      alertVisible
     }
   }
 })

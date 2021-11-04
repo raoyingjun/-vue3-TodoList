@@ -1,6 +1,6 @@
 <template>
   <p>
-    {{ `（${index + 1}）${data.completed ? '已完成' : '未完成'}` }}：{{ data.text }}
+    {{ `（${index + 1}）${completed ? '已完成' : '未完成'}` }}：{{ text }}
   </p>
   <p>
     <button @click="changeStatus">
@@ -14,27 +14,35 @@
 
 <script lang="ts">
 
-import { defineAsyncComponent, defineComponent, PropType } from 'vue'
-import { TodoItemType } from '@/assets/ts/interfaces'
+import { defineComponent, toRefs } from 'vue'
 
 export default defineComponent({
   props: {
-    data: {
-      type: Object as PropType<TodoItemType>,
+    completed: {
+      type: Boolean,
       required: true
     },
     index: {
       type: Number,
       required: true
+    },
+    text: {
+      type: String,
+      required: true
     }
   },
-  emits: ['remove', 'statusChange'],
-  methods: {
-    handleRemove () {
-      this.$emit('remove', this.index)
-    },
-    changeStatus () {
-      this.$emit('statusChange', this.index, !this.data.completed)
+  emits: ['remove', 'update:completed'],
+  setup (props, { emit }) {
+    const { index, completed } = toRefs(props)
+    const handleRemove = () => {
+      emit('remove', index.value)
+    }
+    const changeStatus = () => {
+      emit('update:completed', !completed.value)
+    }
+    return {
+      handleRemove,
+      changeStatus
     }
   }
 })
