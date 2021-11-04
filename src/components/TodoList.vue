@@ -43,9 +43,6 @@ export default defineComponent({
     const confirmRemove = () => {
       todoList.value.splice(currentIndex.value, 1)
     }
-    const statusChange = (index: number, completed: boolean) => {
-      todoList.value[index].completed = completed
-    }
 
     onMounted(() => {
       add('学习一本NodeJs基础书籍')
@@ -57,8 +54,7 @@ export default defineComponent({
       currentIndex,
       add,
       removeAlert,
-      confirmRemove,
-      statusChange
+      confirmRemove
     }
   },
   components: {
